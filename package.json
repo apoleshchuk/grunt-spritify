@@ -26,12 +26,12 @@
   "dependencies": {
     "async": "^0.9.0",
     "gm": "^1.17.0",
-    "grunt-imgo": "^0.1.1",
-    "grunt-tamia-sprite": "^0.3.0",
     "lodash": "^3.6.0"
   },
   "peerDependencies": {
-    "grunt": "~0.4.5"
+    "grunt": "~0.4.5",
+    "grunt-imgo": "~0.1.1",
+    "grunt-tamia-sprite": "~0.3.1"
   },
   "keywords": [
     "gruntplugin"

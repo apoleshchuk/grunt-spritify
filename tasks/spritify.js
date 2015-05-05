@@ -4,7 +4,6 @@
 module.exports = function(grunt) {
 	'use strict';
 	var gm = require('gm');
-	// var imageMagick = gm.subClass({ imageMagick: true });
 	var async = require('async');
 	var path = require('path');
 	var _ = require('lodash');
@@ -13,12 +12,13 @@ module.exports = function(grunt) {
 		if (resize) {
 			image.resize.apply(image, resize);
 		}
-		image.write(path, function(err, stdout) {
+		image.toBuffer(function (err, buffer) {
 			if (err) {
 				grunt.fatal(err);
 				return done(err);
 			}
 
+			grunt.file.write(path, buffer);
 			grunt.verbose.writeln('File ' + path.cyan + ' created.');
 			done(null, path);
 		});
