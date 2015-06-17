@@ -96,9 +96,9 @@ module.exports = function(grunt) {
 					size.height = Math.ceil(size.height/2)*2;
 
 					image
+						.background('transparent')
 						.gravity('NorthWest')
-						.extent(size.width, size.height)
-						.transparent('white');
+						.extent(size.width, size.height);
 
 					async.series([
 						generateImage.bind(null, image, path.resolve(destDir, basename + '@2x' + extname), false),
