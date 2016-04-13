@@ -26,7 +26,7 @@ module.exports = function(grunt) {
 
 	grunt.registerTask('spritify', 'Complex task for optimize, retinafy and spritify', function (dir) {
 		var done = this.async();
-		
+
 		var targetName = 'spritify_' + Date.now();
 		var options = this.options({
 			src: 'origin/*.png',
@@ -54,7 +54,7 @@ module.exports = function(grunt) {
 
 		destSprite = options.destSprite;
 		dir = path.resolve(dir);
-		
+
 		if (typeof destSprite == 'function') {
 			destSprite = destSprite(dir);
 		}
@@ -70,17 +70,20 @@ module.exports = function(grunt) {
 		};
 
 		if (options.imgo !== false) {
-			imgoConfig[targetName] = _.extend({}, options.imgo, {
-				src: [
-					destSprite, 
-					path.resolve(
-						path.dirname(destSprite), 
-						path.basename(destSprite, path.extname(destSprite)) + '@2x' + path.extname(destSprite)
-					)
-				]
-			});
-			gruntConfig.imgo = imgoConfig;
-			taskList.push('imgo');
+			try {
+				require.resolve('grunt-imgo');
+				imgoConfig[targetName] = _.extend({}, options.imgo, {
+					src: [
+						destSprite,
+						path.resolve(
+							path.dirname(destSprite),
+							path.basename(destSprite, path.extname(destSprite)) + '@2x' + path.extname(destSprite)
+						)
+					]
+				});
+				gruntConfig.imgo = imgoConfig;
+				taskList.push('imgo');
+			} catch (e) {}
 		}
 
 		grunt.config.merge(gruntConfig);
